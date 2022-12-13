@@ -1,0 +1,79 @@
+PARA VER LA CONTRASEÑA GENREADA AUTOMATICAMENTE AL INSTALAR MYSQ. ES SÓLO PARA EL ROOT Y DE USO ÚNICO
+---cat  /var/log/mysqld.log | grep 'password 
+
+PARA INGRESAR COMO ROOT DE MYSQL'
+----mysql -u root -p
+
+hace que la mysql rooter pasword dispense de caracteres especiales.
+---set global validate_password_policy=0;
+
+CAMBIA LA CONRASEÑA DEL ROOT
+---ALTER USER 'root'@'localhost' IDENTIFIED BY 'YOUR-NEW-PASSWORD';
+
+DEPUÉS ACTUALIZAR LA CONTRASEÑA, SALIMOS
+----exit
+
+REINICIAR EL SERVICIO MYSQL
+----systemctl restart  mysqld.service
+
+REPETIR PROCESO EN TODOS LOS MYSQL
+------------------------------------
+[EN EL MAESTRO]
+-----
+MODIFICAR
+----nano /etc/my.cnf
+
+AGREGAR 
+
+server-id = 1
+log_bin = master-bin
+log_bin_index = master-bin.index
+binlog_do_db = test
+binlog_ignore_db = mysql
+
+DESPUÉS DE GUARDAR, REINICIAMOS EL MYSQL y accedemos como root para crear un usuario para el servidor esclavo
+---GRANT REPLICATION SLAVE ON . TO '%esclavo%'@'%' IDENTIFIED BY '%contraseña%';
+
+DAR TODOS LOS PRIVILEGIOS AL ESCLAVO
+----FLUSH PRIVILEGES;
+
+LEE DATOS DE LAS TABLAS
+----FLUSH TABLES WITH READ LOCK;
+
+MOSTRAR ESTATUS "ARCHIVO" Y "POSICIÓN" MUY IMPORTANTE (GUARDAR)
+----SHOW MASTER STATUS;
+
+SALIMOS
+----QUIT
+
+EXPORTAMOS TODAS LAS BASES DE DATOS ASI COMO LA CONFIGURACION DEL MAESTRO
+----mysqldump --skip-lock-tables --single-transaction --flush-logs --hex-blob --master-data=2 –u root -p -A > dump.sql
+
+NOS CONECTAMOS DE VUELTA COMO ROOT DE MYSQL Y DESBLOQUEAMOS LAS TABLAS QUE SE BLOQUEARON AL CREAR AL USUARIO ESCLAVO
+----UNLOCK TABLES;
+
+Y SALIMOS
+
+subimos el backup de MySQL que acabamos de generar al servidor esclavo, con el comando SCP:
+----scp /root/backup.db root@%ip-de-esclavo% /root/
+
+[en el esclavo]
+
+MODIFICAR
+----nano /etc/my.cnf
+
+AGREGAMOS
+
+symbolic-links=0
+server-id = 2
+binlog-format = mixed
+relay-log = mysql-relay-bin
+log-slave-updates = 1
+read-only = 1 # Si queremos que el slave sea de solo lectura
+
+
+
+
+IMPORTAMOS EL BACKUP QUE LE HICIMOS AL MAESTRO Y REINICIAMOS EL SERVIDOR
+
+
