@@ -1,5 +1,5 @@
 PARA VER LA CONTRASEÑA GENREADA AUTOMATICAMENTE AL INSTALAR MYSQ. ES SÓLO PARA EL ROOT Y DE USO ÚNICO
----cat  /var/log/mysqld.log | grep 'password 
+---cat  /var/log/mysqld.log | grep 'password' 
 
 PARA INGRESAR COMO ROOT DE MYSQL'
 ----mysql -u root -p
