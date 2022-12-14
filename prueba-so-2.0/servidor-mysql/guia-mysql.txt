@@ -46,7 +46,8 @@ AGREGAR
 server-id = 1
 log_bin = master-bin
 log_bin_index = master-bin.index
-binlog_do_db = NOMBREDELABASEDEDATOS
+[PUTAMENTE OPCIONAL, 25 HORAS PARA AVERIGUARLO XD, SE SACO PARA QUE COPIE TODAS LAS BASES DE DATOS Y DEMAS]
+binlog_do_db = NOMBRE-DE-LA-BASE-DE-DATOS-A-COPIAR
 binlog_ignore_db = mysql
 
 
@@ -99,3 +100,4 @@ INICIAMOS LA ESCLAVITUD DE SERVIDORES
 VEMOS INFORMACION DE LA ESCLAVITUD XD:
 ---show slave status\G; 
 
+FUENTES: https://www.proxadmin.es/blog/replicar-mysql-maestro-esclavo-en-centos/
