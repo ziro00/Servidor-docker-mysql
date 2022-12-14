@@ -46,7 +46,7 @@ AGREGAR
 server-id = 1
 log_bin = master-bin
 log_bin_index = master-bin.index
-binlog_do_db = test
+binlog_do_db = NOMBREDELABASEDEDATOS
 binlog_ignore_db = mysql
 
 
