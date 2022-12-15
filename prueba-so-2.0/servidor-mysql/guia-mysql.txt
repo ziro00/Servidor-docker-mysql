@@ -54,8 +54,10 @@ binlog_ignore_db = mysql
 REINICIAR EL SERVICIO MYSQL
 ---systemctl restart  mysqld
 
-PERMITIR SOLO EL PUERTO 3306
----firewall-cmd --zone=public --add-port=3306/tcp --permanent
+PERMITIR SOLO EL PUERTO 3306 Y LO DEJA PERMANENTEMENTE ABIERTO.
+---firewall-cmd --add-port=3306/tcp --permanent
+/*AGREGAR PUERTO 22 SI QUIERES CONECTARTE DESDE OTRA MAQUINA*/
+---firewall-cmd --add-port=22/tcp --permanent
 
 REINICIAMOS FIREWALL
 ---firewall-cmd --reload
