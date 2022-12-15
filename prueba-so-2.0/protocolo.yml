@@ -15,4 +15,7 @@
    tasks: 
     
       - include_tasks: servidor-mysql/servidor-mysql.yml
-
+      
+ - hosts: respaldo
+   tasks:     
+      - include_tasks: servidor-mysql/respaldo-mysql.yml
