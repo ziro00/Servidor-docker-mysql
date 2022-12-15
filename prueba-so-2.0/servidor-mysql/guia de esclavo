@@ -1,0 +1,31 @@
+[EN EL ESCLAVO]
+
+MODIFICAR
+---nano /etc/my.cnf
+
+AGREGAMOS{
+
+server-id = 2
+relay-log = slave-relay-bin
+relay-log-index = slave-relay-bin.index
+}
+REINICIAMOS EL SERVICIO MYSQL
+---systemctl restart mysqld || mysqld.service
+
+ACCEDEMOS COMO ROOT MYSQL del esclavo
+---mysql -u root -p
+
+NOS CONECTAMOS CON AL MAESTRO DESDE EL ESCLAVO                                                                           ///////////////////ESTÁ EN SHOW MASTER STATUS
+---change master to master_host='$IP_DEL_MAESTRO', master_port=3306, master_user='$repl', master_password='$repl_Pass1', master_log_file='master-bin.000002', master_log_pos=154;
+
+INICIAMOS LA ESCLAVITUD DE SERVIDORES
+---start slave;
+
+VEMOS INFORMACION DE LA ESCLAVITUD XD:
+---show slave status\G; 
+
+GENERAR CLAVE PUBLICA
+---ssh-keygen -t rsa
+
+DAR CLAVE AL RESPALDO
+---ssh-copy-id $respaldo@$remote_IP_Address
