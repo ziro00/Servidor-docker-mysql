@@ -1,5 +1,7 @@
 [docker]
 192.168.213.152 ansible_ssh_user="root"  ansible_ssh_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [mysql]
-192.168.213.159 ansible_ssh_user="root"  ansible_ssh_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-192.168.213.160 ansible_ssh_user="root"  ansible_ssh_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+192.168.213.169 ansible_ssh_user="root"  ansible_ssh_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+192.168.213.167 ansible_ssh_user="root"  ansible_ssh_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+[respaldo]
+192.168.213.167 ansible_ssh_user="root"  ansible_ssh_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
