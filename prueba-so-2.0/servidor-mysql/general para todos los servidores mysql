@@ -1,0 +1,20 @@
+------------------------------------
+REPETIR PROCESO EN TODOS LOS MYSQL
+------------------------------------
+PARA VER LA CONTRASEÑA GENREADA AUTOMATICAMENTE AL INSTALAR MYSQ. ES SÓLO PARA EL ROOT Y DE USO ÚNICO
+---cat  /var/log/mysqld.log | grep '$password' 
+
+PARA INGRESAR COMO ROOT DE MYSQL'
+---mysql -u root -p
+
+hace que la mysql rooter pasword dispense de caracteres especiales.
+---set global validate_password_policy=0;
+
+CAMBIA LA CONRASEÑA DEL ROOT
+---ALTER USER 'root'@'$localhost || %' IDENTIFIED BY '$YOUR-NEW-PASSWORD';
+
+DEPUÉS DE ACTUALIZAR LA CONTRASEÑA, SALIMOS
+---exit || quite
+
+REINICIAR EL SERVICIO MYSQL para guardar cambios.
+---systemctl restart  mysqld.service || mysqld
