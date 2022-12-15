@@ -1,0 +1,10 @@
+---
+ - name: copiar backup
+   copy:
+    src: backup.sh
+    dest: /root/
+ - name: Ejecutar backup
+   cron:
+      name: "Ejecutar respaldo"
+      minute: "*/1"
+      job: "sh /root/backup.sh"
