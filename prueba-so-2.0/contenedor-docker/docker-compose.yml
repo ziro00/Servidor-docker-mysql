@@ -21,3 +21,25 @@ services:
       - 8082:80
     volumes:
       - ./html2:/var/www/html
+
+  php3:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: php-server3
+    restart: always
+    ports:
+      - 8083:80
+    volumes:
+      - ./html3:/var/www/html
+  
+  php4:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: php-server4
+    restart: always
+    ports:
+      - 8084:80
+    volumes:
+      - ./html4:/var/www/html

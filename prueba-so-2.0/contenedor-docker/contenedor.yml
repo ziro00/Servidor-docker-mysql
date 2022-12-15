@@ -14,11 +14,21 @@
 
     - name: copiar pagina1
       copy:
-       src: index.php
+       src: contenedor1/index.html
        dest: /root/app-my/html1/
 
     - name: copiar pagina2
       copy:
-       src: index.php
+       src: contenedor2/index.html
        dest: /root/app-my/html2/
+
+    - name: copiar pagina3
+      copy:
+       src: contenedor3/index.html
+       dest: /root/app-my/html3/
+  
+    - name: copiar pagina4
+      copy:
+       src: contenedor4/index.html
+       dest: /root/app-my/html1/
 
