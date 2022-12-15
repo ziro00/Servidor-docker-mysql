@@ -1,0 +1,52 @@
+[EN EL MAESTRO]
+-----
+Accedemos como root
+---mysql -u root -p
+
+
+hace que la mysql rooter pasword dispense de caracteres especiales.
+---set global validate_password_policy=0;
+
+
+y creamos un usuario para el servidor esclavo
+---create user '$repl'@'%' identified by '$repl_Pass1';
+
+OTORGAR LOS PERMISOS AL USUARIO DEL ESCLAVO
+---GRANT REPLICATION SLAVE ON *.* TO '$repl'@'%';
+ 
+SALIMOS
+---quit
+
+MODIFICAR
+---nano /etc/my.cnf
+
+AGREGAR  IGNORANDO LAS LLAVES{
+
+server-id = 1
+log_bin = master-bin
+log_bin_index = master-bin.index
+
+}
+REINICIAR EL SERVICIO MYSQL
+---systemctl restart  mysqld || mysqld.service
+
+PERMITIR SOLO EL PUERTO 3306 (APLICAR DIRECTAMENTE EN LA MAQUINA HOST)
+---firewall-cmd --add-port=3306/tcp --permanent
+
+REINICIAMOS FIREWALL
+---firewall-cmd --reload
+
+{
+SI SE DESEA COMPROBAR LOS PUERTOS DISPONIBLES
+---firewall-cmd --list-ports
+}
+
+ACCEDEMOS COMO ROOT MYSQL
+---mysql -u root -p
+
+Y VERIFICAMOS EL ESTADO DEL SERVIDOR MAESTRO
+---show master status; <-- LA POSICION Y EL NOMBRE DEL ARCHIVO ES MUY IMPORTANTE POR LO QUE SE DEBE ANOTAR, SE USARAN MAS ADELANTE
+
+
+Y SALIMOS
+---quit
